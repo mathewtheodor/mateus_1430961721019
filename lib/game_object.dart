@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 
-class GameObject {
+abstract class GameObject {
   Rect position;
-  Paint _white = Paint()
-    ..color = Color(0xFFFFFFFF);
+  Paint paint;
+  double speed;
+  static Color red = Colors.red;
+  static Color white = Colors.white;
+  static Color green = Colors.green;
 
   void render(Canvas canvas) {
-    canvas.drawRect(position, _white);
+    canvas.drawRect(position, paint);
+  }
+}
+
+abstract class CollidableObject extends GameObject {
+  static List<CollidableObject> collidableObjects = [];
+  List<CollidableObject> collidingObjects = [];
+
+  CollidableObject() {
+    collidableObjects.add(this);
   }
 }

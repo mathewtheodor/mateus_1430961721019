@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:mateus1430961721019/space_game_shooter.dart';
+import 'package:mateus1430961721019/space_shooter_game.dart';
 
 class GameWidget extends StatelessWidget {
+  final Size size;
+
+  GameWidget(this.size);
+
   @override
   Widget build(BuildContext context){
-    final game = SpaceShooterGame();
+    final game = SpaceShooterGame(size);
+
     return GestureDetector(
+      onPanStart: (_) {
+        game.beginFire();
+      },
+      onPanEnd: (_) {
+        game.stopFire();
+      },
+      onPanCancel: () {
+        game.stopFire();
+      },
       onPanUpdate: (DragUpdateDetails details) {
         game.onPlayerMove(details.delta);
       },
@@ -13,15 +27,5 @@ class GameWidget extends StatelessWidget {
           color: Color(0xFF0000000),
           child: game.widget),
     );
-  }
-}
-
-class GameObject {
-  Rect position;
-  Paint _white = Paint()
-    ..color = Color(0xFFFFFFFF);
-
-  void render(Canvas canvas) {
-    canvas.drawRect(position, _white);
   }
 }

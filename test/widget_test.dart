@@ -7,14 +7,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flame/flame.dart';
 import 'package:mateus1430961721019/game_widget.dart';
 
-import 'package:mateus1430961721019/main.dart';
 
-void main() {
+
+void main() async {
+  Size size = await Flame.util.initialDimensions();
+
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    //await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(GameWidget(size));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
